@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Document Management Systems",
+    "description": "Document Management Systems API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Document Management Systems",
+      "description": "API for for DMS system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/folder": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Folder"],
+        "summary": "Get all folders in system",
+        "responses": {
+          "200": {
+            "description": "Folders Fetched"
+          }
+        }
+      }
+    },
+    "/file/{folderId}": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "Get all files in a folder",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "folderId",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The folderId whose contents are to be returned"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Files Fetched"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["User"],
+        "description": "Loggin  user in system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "ref": "#/models/user/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Folders Fetched"
+          }
+        }
+      }
+    }
+  }
+}
